@@ -1,3 +1,5 @@
+parei por aqui!!! Muitos bugs na versao disponibilizada para o Angular. Tambem, mudancas no Angular vao atrapalhar atualizacoes deste projeto.
+
 # WebswarmApp
 
 This project was generated with [Angular CLI](https://github.com/angular/angular-cli) version 16.0.2.
