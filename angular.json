@@ -3,7 +3,7 @@
   "version": 1,
   "newProjectRoot": "projects",
   "projects": {
-    "webswarm-app": {
+    "webswarm": {
       "projectType": "application",
       "schematics": {},
       "root": "",
@@ -13,7 +13,7 @@
         "build": {
           "builder": "@angular-devkit/build-angular:browser",
           "options": {
-            "outputPath": "dist/webswarm-app",
+            "outputPath": "dist/webswarm",
             "index": "src/index.html",
             "main": "src/main.ts",
             "polyfills": [
@@ -60,10 +60,10 @@
           "builder": "@angular-devkit/build-angular:dev-server",
           "configurations": {
             "production": {
-              "browserTarget": "webswarm-app:build:production"
+              "browserTarget": "webswarm:build:production"
             },
             "development": {
-              "browserTarget": "webswarm-app:build:development"
+              "browserTarget": "webswarm:build:development"
             }
           },
           "defaultConfiguration": "development"
@@ -71,7 +71,7 @@
         "extract-i18n": {
           "builder": "@angular-devkit/build-angular:extract-i18n",
           "options": {
-            "browserTarget": "webswarm-app:build"
+            "browserTarget": "webswarm:build"
           }
         },
         "test": {
