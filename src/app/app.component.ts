@@ -1,4 +1,4 @@
-import {  AfterViewInit, Component, OnInit, ViewChild } from '@angular/core';
+import {  AfterViewInit, Component, ElementRef, OnInit, ViewChild } from '@angular/core';
 import { WebGLService } from './scene/services/web-gl.service';
 
 @Component({
@@ -10,7 +10,7 @@ export class AppComponent implements OnInit, AfterViewInit {
   title = 'webswarm-app';
 
 
-  @ViewChild('sceneCanvas') private canvas!: HTMLCanvasElement;
+  @ViewChild('sceneCanvas') private canvas!: ElementRef<HTMLCanvasElement>;
 
 
   constructor(private webglService: WebGLService){
@@ -23,7 +23,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       alert("canvas not supplied! cannot bind WebGL context!");
       return;
     }
-    this.webglService.initialiseWebGLContext(this.canvas.getContext("webgl"));
+    this.webglService.initialiseWebGLContext(this.canvas.nativeElement);
 }
 
 }
