@@ -7,7 +7,7 @@ import { WebGLService } from './scene/services/web-gl.service';
   styleUrls: ['./app.component.css']
 })
 export class AppComponent implements OnInit, AfterViewInit {
-  title = 'webswarm-app';
+  title = 'webswarm';
 
 
   @ViewChild('sceneCanvas') private canvas!: ElementRef<HTMLCanvasElement>;
