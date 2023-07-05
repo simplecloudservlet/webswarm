@@ -1,5 +1,5 @@
 {
-  "name": "webswarm-app",
+  "name": "webswarm",
   "version": "0.0.0",
   "scripts": {
     "ng": "ng",
