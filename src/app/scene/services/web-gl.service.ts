@@ -7,6 +7,7 @@ import * as matrix from 'gl-matrix';
   providedIn: 'root',
 })
 export class WebGLService {
+  
   /**
    * The underlying {@link RenderingContext}.
    */
@@ -89,7 +90,7 @@ export class WebGLService {
     this.buffers = this.initialiseBuffers();
 
     // prepare the scene to display content
-    this.prepareScene();
+    this.prepareScene(0);
 
     return this.gl
   }
@@ -160,7 +161,7 @@ export class WebGLService {
   /**
    * Prepare's the WebGL context to render content.
    */
-  prepareScene() {
+  prepareScene(squareRotation: number) {
     this.resizeWebGLCanvas();
     this.updateWebGLCanvas();
 
@@ -169,8 +170,14 @@ export class WebGLService {
     matrix.mat4.translate(
       this.modelViewMatrix, // destination matrix
       this.modelViewMatrix, // matrix to translate
-      [0.0, 0.0, -6.0]      // amount to translate
+      [1.5, 1.3, -6.0]      // amount to translate
     ); 
+    matrix.mat4.rotate(
+      this.modelViewMatrix,                    // destination matrix
+      this.modelViewMatrix,    // matrix to rotate
+      squareRotation,      // amount to rotate in radians
+      [0, 0, 1]               // rotate around X, Y, Z axis
+  );
 
     // tell WebGL how to pull out the positions from the position
     // buffer into the vertexPosition attribute
@@ -429,4 +436,53 @@ z`   *
   private setModelViewAsIdentity() {
     this.modelViewMatrix = matrix.mat4.create();
   }
+
+  /*rotate(ticks: number) {
+    this.resizeWebGLCanvas();
+    this.updateWebGLCanvas();
+
+    // move the camera position a bit backwards to a position where 
+    // we can observe the content that will be drawn from a distance
+    matrix.mat4.translate(
+      this.modelViewMatrix, // destination matrix
+      this.modelViewMatrix, // matrix to translate
+      [0.0, 0.0, ticks]      // amount to translate
+    ); 
+
+    // tell WebGL how to pull out the positions from the position
+    // buffer into the vertexPosition attribute
+    this.bindVertexPosition(this.programInfo, this.buffers);
+
+    // tell WebGL how to pull out the colors from the color buffer
+    // into the vertexColor attribute.
+    this.bindVertexColor(this.programInfo, this.buffers);
+
+    // tell WebGL to use our program when drawing
+    this.gl.useProgram(this.programInfo.program);
+
+    // set the shader uniforms
+    this.gl.uniformMatrix4fv(
+      this.programInfo.uniformLocations.projectionMatrix,
+      false,
+      this.projectionMatrix
+    );
+    this.gl.uniformMatrix4fv(
+      this.programInfo.uniformLocations.modelViewMatrix,
+      false,
+      this.modelViewMatrix
+    );
+  }*/
+  getModelViewMatrix(){
+    return this.modelViewMatrix;
+  }
+  getMatrix(){
+    return matrix; ///////////////PAREI POR AQUI!!!!
+  }
+  setModelViewMatrix(modelViewMatrix:any):void{
+    this.modelViewMatrix = modelViewMatrix;
+  }
+  setMatrix(matrix:any):void{
+    matrix = matrix;
+  }
+  
 }
