@@ -54,7 +54,7 @@ export class AppComponent implements OnInit, AfterViewInit {
       this.drawScene();
       
       this.squareRotation += this.deltaTime; 
-      console.log('squareRotation: ' + this.squareRotation);
+      //console.log('squareRotation: ' + this.squareRotation);
       if(this.deltaTime < 0.800) 
         //Deslocamento pequeno dah a sensacao de movimento
         this.deltaTime = this.deltaTime + (this._60fpsInterval * milliseconds);
