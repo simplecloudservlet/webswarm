@@ -80,13 +80,14 @@ let  animating = false;  // is the animation running?
    colors are used when the user selects colored rather than red points.
    The positions of the points are updated for each frame of the animation. */
 
-const  POINT_COUNT = 100;
+const  POINT_COUNT = 1;
 const  pointCoords = new Float32Array( 2*POINT_COUNT );
 const  pointVelocities = new Float32Array( 2*POINT_COUNT );
 const  pointRandomColors = new Float32Array( 3*POINT_COUNT );
 
 function createPointData() { // called during initialization to fill the arrays with data.
     for (let i = 0; i < POINT_COUNT; i++) {
+      
            // Each point has two coordinates and two velocities.  Velocity number k
            // tells how fast coordinate number k changes in pixels per frame.
         pointCoords[2*i] = canvas.width * Math.random();  // x-coordinate of point
@@ -95,11 +96,60 @@ function createPointData() { // called during initialization to fill the arrays 
         let  randomAngle = 2*Math.PI * Math.random();
         pointVelocities[2*i] = randomVelocity * Math.cos(randomAngle);
         pointVelocities[2*i+1] = randomVelocity * Math.sin(randomAngle);
+        
     }
     for (let i = 0; i < 3 * POINT_COUNT; i++) {
            // The array contains color components, with three numbers per vertex.
            // The color components are just random numbers in the range zero to 1.
         pointRandomColors[i] = Math.random();
+    }
+}
+
+//file:///C:/Users/outro/Downloads/PoliKennedyBlackwellSI2007.pdf
+function updateVel(i){
+  console.log('updateVel');
+  let r1 = Math.random();
+  let r2 = Math.random();
+  let x1 = pointCoords[i]-r1;
+  let x2 = pointCoords[i]-r2;
+
+  return pointVelocities[i] + 
+      r1*(pointCoords[i]-x1) + 
+      r2*(pointCoords[i]-x2);
+}
+
+
+function movePSO() { // called during an animation, before each frame.
+    let  size = Number(document.getElementById("sizeChoice").value) / 2; // radius
+    for (let i = 0; i < 2*POINT_COUNT; i += 2) { // x-coords (0,2,4,...)
+        //pointCoords[i] += pointVelocities[i];
+        pointCoords[i] += updateVel(i);
+        if (pointCoords[i]-size < 0) {
+            pointCoords[i] = size-(pointCoords[i]-size);// move coord back onto canvas
+            //pointVelocities[i] = Math.abs(pointVelocities[i]); // and make sure point is moving in positive direction
+            pointVelocities[i] = Math.abs(updateVel(i)); // and make sure point is moving in positive direction
+        }
+        else if (pointCoords[i]+size > canvas.width) {
+            pointCoords[i] = canvas.width - (pointCoords[i]+size - canvas.width) - size;// move coord back onto canvas
+            //pointVelocities[i] = -Math.abs(pointVelocities[i]); // and make sure point is moving in negative direction
+            pointVelocities[i] = -Math.abs(updateVel(i)); 
+        }
+        //console.log('X:'+pointCoords[i]); //
+    }
+    for (let i = 1; i < 2*POINT_COUNT; i += 2) { // y-coords (1,3,5,...)
+        //pointCoords[i] += pointVelocities[i];
+        pointCoords[i] += updateVel(i);
+        if (pointCoords[i]-size < 0) {
+            pointCoords[i] = size-(pointCoords[i]-size);// move coord back onto canvas
+            //pointVelocities[i] = Math.abs(pointVelocities[i]); // and make sure point is moving in positive direction
+            pointVelocities[i] = Math.abs(updateVel(i));
+        }
+        else if (pointCoords[i]+size > canvas.height) {
+            pointCoords[i] = canvas.height - (pointCoords[i]+size - canvas.height) - size;// move coord back onto canvas
+            //pointVelocities[i] = -Math.abs(pointVelocities[i]); // and make sure point is moving in negative direction
+            pointVelocities[i] = -Math.abs(updateVel(i));
+        }
+        //console.log('Y:'+pointCoords[i]);
     }
 }
 
@@ -226,7 +276,8 @@ function initGL() {
 
 function doFrame() {
     if (animating) {
-        updatePointCoordsForFrame();
+        //updatePointCoordsForFrame();
+        movePSO();
         draw();
         requestAnimationFrame(doFrame);
     }
@@ -322,6 +373,6 @@ window.onload = init;  // Arrange for init() to be called after page has loaded.
 
 <script src="webswarm/runtime.152b869419e8440c.js" type="module"></script>
 <script src="webswarm/polyfills.8caff54a8cd03f5a.js" type="module"></script>
-<script src="webswarm/main.bb237db8d104a2b5.js" type="module"></script></body>
+<script src="webswarm/main.0820506b744dfe46.js" type="module"></script></body>
 </html>
 
