@@ -23,7 +23,7 @@
   <link rel="stylesheet" href="webswarm/styles.ef46db3751d8e999.css"></head>
   
 <meta charset="UTF-8">
-<title>Moving Disks in WebGL</title>
+<title>WebSwarm in WebGL</title>
 <style>
     label {
         margin-left: 30px;
@@ -80,7 +80,7 @@ let  animating = false;  // is the animation running?
    colors are used when the user selects colored rather than red points.
    The positions of the points are updated for each frame of the animation. */
 
-const  POINT_COUNT = 1;
+const  POINT_COUNT = 1000;
 const  pointCoords = new Float32Array( 2*POINT_COUNT );
 const  pointVelocities = new Float32Array( 2*POINT_COUNT );
 const  pointRandomColors = new Float32Array( 3*POINT_COUNT );
@@ -349,7 +349,7 @@ window.onload = init;  // Arrange for init() to be called after page has loaded.
 
 <body>
 
-<h2>Moving Points with the WebGL POINTS primitive</h2>
+<h2>WebSwarm in WebGL</h2>
 
 <noscript><p><b>Sorry, but this page requires JavaScript.</b></p></noscript>
 
@@ -360,6 +360,12 @@ window.onload = init;  // Arrange for init() to be called after page has loaded.
         <option value="16">Small</option>
         <option value="32">Medium</option>
         <option value="64">Large</option>
+    </select></label>
+    <label><b>Number of Points:</b> <select id="numberPoints">
+        <option value="1">Tiny</option>
+        <option value="100">Small</option>
+        <option value="500">Medium</option>
+        <option value="1000">Large</option>
     </select></label>
 </p>
 
